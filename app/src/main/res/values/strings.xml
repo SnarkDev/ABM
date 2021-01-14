@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ABM</string>
+    <string name="editDefault_Button">Edit default</string>
+    <string name="refresh_Button">Refresh</string>
 </resources>
