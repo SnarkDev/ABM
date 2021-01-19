@@ -3,6 +3,7 @@ package ch.trumpf.abm;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import android.Manifest;
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -43,6 +44,13 @@ public class MainActivity extends AppCompatActivity  {
             contacts = getAllContacts();
 
             fillListView(contacts);
+        });
+
+        Button editDefault = (Button) findViewById(R.id.editDefault_Btn);
+
+        editDefault.setOnClickListener(v ->
+        {
+            setContentView(R.layout.activity_edit_default);
         });
 
         contacts = sortContacts(contacts);
