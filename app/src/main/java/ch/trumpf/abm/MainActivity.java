@@ -3,8 +3,8 @@ package ch.trumpf.abm;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import android.Manifest;
-import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -50,7 +50,8 @@ public class MainActivity extends AppCompatActivity  {
 
         editDefault.setOnClickListener(v ->
         {
-            setContentView(R.layout.activity_edit_default);
+            Intent intent = new Intent(this, EditDefaultActivity.class);
+            startActivity(intent);
         });
 
         contacts = sortContacts(contacts);
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity  {
 
         for (Contact contact : contacts)
         {
-            listViewData.add(contact.getM_Name());
+            listViewData.add(contact.getName());
         }
 
         ListView contactsListView = (ListView) findViewById(R.id.contacts_Lv);
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity  {
         Comparator<Contact> contactComparator = new Comparator<Contact>() {
             @Override
             public int compare(Contact c1, Contact c2) {
-                return c1.getM_Name().compareToIgnoreCase(c2.getM_Name());
+                return c1.getName().compareToIgnoreCase(c2.getName());
             }
         };
 
@@ -135,42 +136,38 @@ public class MainActivity extends AppCompatActivity  {
 
                 if (cur.getInt(cur.getColumnIndex( ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0)
                 {
-                    Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                    Cursor contactCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                             null,
                             ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
                             new String[]{contact_Id}, null);
 
-                    while (pCur.moveToNext())
+                    while (contactCur.moveToNext())
                     {
-                        String contact_PhoneNumber = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                        String contact_PhoneNumber = contactCur.getString(contactCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                         Cursor birthdayCur = cr.query(ContactsContract.Data.CONTENT_URI, columns, selection + contact_Id, null, sortOrder);
 
                         if (birthdayCur.getCount() > 0)
                         {
-                            while (birthdayCur.moveToNext()) {
-                                String birthday = birthdayCur.getString(birthdayCur.getColumnIndex(ContactsContract.CommonDataKinds.Event.START_DATE));
-                                Date contact_Birthdate;
-                                try
-                                {
-                                    contact_Birthdate = Date.valueOf(birthday);
-                                }
-                                catch (Exception e)
-                                {
-                                    contact_Birthdate = null;
-                                }
-
-                                Contact contact = new Contact(Integer.parseInt(contact_Id) , contact_Name, contact_PhoneNumber, contact_Birthdate);
+                            birthdayCur.moveToNext();
+                            String birthday = birthdayCur.getString(birthdayCur.getColumnIndex(ContactsContract.CommonDataKinds.Event.START_DATE));
+                            Date contact_Birthdate;
+                            try
+                            {
+                                contact_Birthdate = Date.valueOf(birthday);
+                            }
+                            catch (Exception e)
+                            {
+                                contact_Birthdate = null;
+                            }
+                            Contact contact = new Contact(Integer.parseInt(contact_Id) , contact_Name, contact_PhoneNumber, contact_Birthdate);
+                            if(!IsAlreadyListed(contacts, contact))
+                            {
                                 contacts.add(contact);
                             }
                         }
-                        else
-                        {
-                            Contact contact = new Contact(Integer.parseInt(contact_Id), contact_Name, contact_PhoneNumber, null);
-                            contacts.add(contact);
-                        }
                         birthdayCur.close();
                     }
-                    pCur.close();
+                    contactCur.close();
                 }
             }
         }
@@ -179,5 +176,20 @@ public class MainActivity extends AppCompatActivity  {
             cur.close();
         }
         return contacts;
+    }
+
+    private boolean IsAlreadyListed(ArrayList<Contact> contacts, Contact contact)
+    {
+        if(contacts.size() > 0)
+        {
+            for (Contact currentContact:contacts)
+            {
+                if(currentContact.getName() == contact.getName())
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

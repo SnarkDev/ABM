@@ -6,45 +6,45 @@ public class Contact {
     private int m_id;
     private String m_Name;
     private String m_PhoneNumber;
-    private Date m_Birtdate;
+    private Date m_Birthdate;
 
     public Contact(int id, String name, String phoneNumber, Date birthdate)
     {
         m_id = id;
         m_Name = name;
         m_PhoneNumber = phoneNumber;
-        m_Birtdate = birthdate;
+        m_Birthdate = birthdate;
     }
 
-    public String getM_Name() {
+    public String getName() {
         return m_Name;
     }
 
-    public void setM_Name(String m_Name) {
-        this.m_Name = m_Name;
+    public void setName(String Name) {
+        this.m_Name = Name;
     }
 
-    public String getM_PhoneNumber() {
+    public String getPhoneNumber() {
         return m_PhoneNumber;
     }
 
-    public void setM_PhoneNumber(String m_PhoneNumber) {
-        this.m_PhoneNumber = m_PhoneNumber;
+    public void setPhoneNumber(String PhoneNumber) {
+        this.m_PhoneNumber = PhoneNumber;
     }
 
-    public Date getM_Birtdate() {
-        return m_Birtdate;
+    public Date getBirthdate() {
+        return m_Birthdate;
     }
 
-    public void setM_Birtdate(Date m_Birtdate) {
-        this.m_Birtdate = m_Birtdate;
+    public void setBirthdate(Date Birthdate) {
+        this.m_Birthdate = Birthdate;
     }
 
-    public int getM_id() {
+    public int getId() {
         return m_id;
     }
 
-    public void setM_id(int m_id) {
-        this.m_id = m_id;
+    public void setId(int Id) {
+        this.m_id = Id;
     }
 }
