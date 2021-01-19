@@ -7,10 +7,12 @@
     tools:context=".EditDefaultActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/EditDefault_Tv"
@@ -25,7 +27,7 @@
             android:layout_height="25dp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="411.5dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
@@ -34,6 +36,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_weight="0"
+                android:contentDescription="@string/InformationIcon_Description"
                 app:srcCompat="@drawable/information_icon" />
 
             <TextView
@@ -42,7 +45,8 @@
                 android:layout_height="50dp"
                 android:layout_weight="0"
                 android:gravity="center"
-                android:text="@string/EditDefaultExplanation_TextView" />
+                android:text="@string/EditDefaultExplanation_TextView"
+                android:textSize="15sp" />
 
         </LinearLayout>
 
@@ -59,7 +63,39 @@
                 android:layout_height="300dp"
                 android:gravity="top"
                 android:hint="@string/DefaultText_TextLayout" />
+
         </com.google.android.material.textfield.TextInputLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
+
+            <Button
+                android:id="@+id/save_Btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/Save_Button" />
+
+            <Space
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0" />
+
+            <Button
+                android:id="@+id/Clear_Btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/Clear_Button" />
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,9 @@
     <string name="editDefault_Button">Edit default</string>
     <string name="refresh_Button">Refresh</string>
     <string name="EditDefault_TextView">Edit Default</string>
-    <string name="EditDefaultExplanation_TextView">This text will be sent if you haven\'t set a specific text.</string>
+    <string name="EditDefaultExplanation_TextView">This text will be sent if you haven\'t set a specific text</string>
     <string name="DefaultText_TextLayout"><font size="50">Default Text</font></string>
+    <string name="Save_Button">Save</string>
+    <string name="Clear_Button">Clear</string>
+    <string name="InformationIcon_Description">InformationIcon</string>
 </resources>
