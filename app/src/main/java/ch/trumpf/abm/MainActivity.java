@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 import android.provider.ContactsContract;
+
+import com.google.gdata.data.spreadsheet.ListEntry;
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -50,11 +54,30 @@ public class MainActivity extends AppCompatActivity  {
 
         editDefault.setOnClickListener(v ->
         {
-            Intent intent = new Intent(this, EditDefaultActivity.class);
-            startActivity(intent);
+            Intent EditDefaultActivityIntent = new Intent(this, EditDefaultActivity.class);
+            startActivity(EditDefaultActivityIntent);
         });
 
         contacts = sortContacts(contacts);
+
+        ListView contactsListView = (ListView) findViewById(R.id.contacts_Lv);
+        contactsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                Contact clickedContact = contacts.get(position);
+                startEditContactActivity(clickedContact);
+            }
+        });
+    }
+
+    private void startEditContactActivity(Contact contact)
+    {
+        Intent intent = new Intent(this, EditContact.class);
+        intent.putExtra("Name", contact.getName());
+        intent.putExtra("Birthdate", contact.getBirthdate());
+        intent.putExtra("Phonenumber", contact.getPhoneNumber());
+        startActivity(intent);
     }
 
     private void fillListView(ArrayList<Contact> contacts)
