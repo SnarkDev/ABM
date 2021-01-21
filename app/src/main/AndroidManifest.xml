@@ -14,8 +14,7 @@
         android:theme="@style/Theme.ABM">
         <activity android:name=".EditContact"></activity>
         <activity android:name=".EditDefaultActivity" />
-        <activity android:name=".MainActivity">
-            android:name = ".MainActivity"
+        <activity android:name=".MainActivity"
             android:configChanges = "keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

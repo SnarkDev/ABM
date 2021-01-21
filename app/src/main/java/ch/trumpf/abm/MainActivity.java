@@ -22,6 +22,8 @@ import java.util.Comparator;
 
 import android.provider.ContactsContract;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gdata.data.spreadsheet.ListEntry;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_READ_CONTACTS = 79;
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 123;
     public ArrayList<Contact> contacts;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
