@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ABM">
-        <activity android:name=".EditDefaultActivity"></activity>
+        <activity android:name=".EditContact"></activity>
+        <activity android:name=".EditDefaultActivity" />
         <activity android:name=".MainActivity">
             android:name = ".MainActivity"
             android:configChanges = "keyboardHidden|orientation|screenSize">

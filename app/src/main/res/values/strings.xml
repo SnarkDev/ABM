@@ -8,4 +8,5 @@
     <string name="Save_Button">Save</string>
     <string name="Clear_Button">Clear</string>
     <string name="InformationIcon_Description">InformationIcon</string>
+    <string name="BirthDateTitle_TextView">Birthdate</string>
 </resources>
