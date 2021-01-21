@@ -1,12 +1,14 @@
 package ch.trumpf.abm;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Contact {
+public class Contact implements Serializable {
     private int m_id;
     private String m_Name;
     private String m_PhoneNumber;
     private Date m_Birthdate;
+    private String m_CustomText;
 
     public Contact(int id, String name, String phoneNumber, Date birthdate)
     {
@@ -47,4 +49,8 @@ public class Contact {
     public void setId(int Id) {
         this.m_id = Id;
     }
+
+    public String getCustomText() {return  m_CustomText;}
+
+    public void  setCustomText(String customText) {this.m_CustomText = customText;}
 }

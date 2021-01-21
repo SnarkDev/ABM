@@ -9,4 +9,5 @@
     <string name="Clear_Button">Clear</string>
     <string name="InformationIcon_Description">InformationIcon</string>
     <string name="BirthDateTitle_TextView">Birthdate</string>
+    <string name="ContactText_TextLayout">Text</string>
 </resources>

@@ -19,8 +19,18 @@ public class EditDefaultActivity extends AppCompatActivity {
 
         clear.setOnClickListener(v ->
         {
-            TextInputLayout DefaultText = (TextInputLayout) findViewById(R.id.ContactText_TextInput);
-            DefaultText.getEditText().setText("");
+            TextInputLayout CustomText = (TextInputLayout) findViewById(R.id.ContactText_TextInput);
+            CustomText.getEditText().setText("");
         });
+
+        Button save = (Button) findViewById(R.id.Save_Btn);
+
+        save.setOnClickListener(v ->
+        {
+            TextInputLayout CustomText = (TextInputLayout) findViewById(R.id.ContactText_TextInput);
+            CustomText.getEditText();
+        });
+
+
     }
 }

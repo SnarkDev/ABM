@@ -8,11 +8,14 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -21,9 +24,10 @@ import android.provider.ContactsContract;
 
 import com.google.gdata.data.spreadsheet.ListEntry;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
 
     public static final int REQUEST_READ_CONTACTS = 79;
+    private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 123;
     public ArrayList<Contact> contacts;
 
     @Override
@@ -33,7 +37,12 @@ public class MainActivity extends AppCompatActivity  {
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
         {
-            requestPermission();
+            requestContactPermission();
+        }
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED)
+        {
+            requestSMSPermission();
         }
 
         contacts = getAllContacts();
@@ -71,12 +80,18 @@ public class MainActivity extends AppCompatActivity  {
         });
     }
 
+    private  void SendSMS(Contact contact)
+    {
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(contact.getPhoneNumber(), null, contact.getCustomText(), null, null);
+    }
+
     private void startEditContactActivity(Contact contact)
     {
         Intent intent = new Intent(this, EditContact.class);
-        intent.putExtra("Name", contact.getName());
-        intent.putExtra("Birthdate", contact.getBirthdate());
-        intent.putExtra("Phonenumber", contact.getPhoneNumber());
+        /*intent.putExtra("Name", contact.getName());
+        intent.putExtra("Birthdate", contact.getBirthdate().toString());*/
+        intent.putExtra("Contact", contact);
         startActivity(intent);
     }
 
@@ -116,20 +131,20 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
-    private void requestPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.READ_CONTACTS)) {
-            // show UI part if you want here to show some rationale !!!
-        }
-        else {
+    private void requestContactPermission() {
+        if (!ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.READ_CONTACTS))
+        {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_CONTACTS},
                     REQUEST_READ_CONTACTS);
         }
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.READ_CONTACTS)) {
+    }
 
-        }
-        else {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_CONTACTS},
-                    REQUEST_READ_CONTACTS);
+    private void requestSMSPermission()
+    {
+        if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.SEND_SMS))
+        {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.SEND_SMS},
+                    MY_PERMISSIONS_REQUEST_SEND_SMS);
         }
     }
 
